@@ -1,33 +1,29 @@
 import random
+WIN_SCR = 3
+DRAW_SCR = 1
+LOOSE_SCR = 0
 n = int(input())
 team=[]
-for i in range(len(n):
-    team.append(str(input()))
-count = 0
-res_i = 0
-res_j = 0
-scr = 0
-for i in range(len(n)):
-    team[i] = {'goal' : 0, 'miss' : 0, 'score' : 0}
-    for j in range(i+1, len(n)):
-        count += 1
-        team[j] = {'goal' : res_j, 'miss' : res_i, 'score' : scr}
+for i in range(n):
+    team.append({'name': str(input()), 'goal' : 0, 'miss' : 0, 'score' : 0, 'games' : []})
+for i in range(len(team)):
+    for j  in range(i+1,len(team)):
         res_i = random.randint(0,10)
         res_j = random.randint(0,10)
         team[i]['goal'] += res_i 
         team[i]['miss'] += res_j
         team[j]['goal'] += res_j
         team[j]['miss'] += res_i
+        team[i]['games'].append({'aponent' : team[j]['name'], 'miss':res_j, 'goal' : res_i})
+        team[j]['games'].append({'aponent' : team[i]['name'], 'miss':res_i, 'goal' : res_j})
         if res_i > res_j:
-            scr = 3
-            team[i]['score'] += scr
-            team[j]['score'] += 0
+            team[i]['score'] += WIN_SCR
+            team[j]['score'] += LOOSE_SCR
         elif res_i < res_j:
-            scr = 3
-            team[j]['score'] += scr
-            team[i]['score'] += 0
+            team[j]['score'] += WIN_SCR
+            team[i]['score'] += LOOSE_SCR
         elif res_i == res_j:
-            scr = 1
-            team[j]['score'] += scr
-            team[i]['score'] += scr      
-        print(team)
+            team[j]['score'] += DRAW_SCR
+            team[i]['score'] += DRAW_SCR      
+print(team)
+
