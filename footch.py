@@ -26,4 +26,3 @@ for i in range(len(team)):
             team[j]['score'] += DRAW_SCR
             team[i]['score'] += DRAW_SCR      
 print(team)
-
